@@ -1,4 +1,4 @@
-Contact: Ahmed.Almutawa@colorado.edu
+#Contact: Ahmed.Almutawa@colorado.edu
 
 Makefile: Contains instructions on how to compile and build the system calls and kernel.
 
