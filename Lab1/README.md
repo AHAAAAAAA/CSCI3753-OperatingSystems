@@ -17,3 +17,18 @@ include/linux/syscalls.h
 * **syscalls.h**: Header file that links syscalls to our test programs.
 * **testfile.c**: Our test program to test the new syscalls.
 * **syslog**: System log.
+
+To run, just place the files according to the build tree above, compile the kernel in the terminal with:
+```
+sudo make -j2 CC="ccache gcc"
+sudo make -j2 modules_install
+sudo make -j2 install
+```
+then reboot into the new compiled kernel (Google this). Then just compile the testfile.c in the terminal with 
+```
+gcc testfile.c
+```
+and run the output
+```
+./a.out
+```
