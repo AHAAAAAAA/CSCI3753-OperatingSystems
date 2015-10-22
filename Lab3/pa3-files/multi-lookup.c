@@ -55,6 +55,7 @@ void* resolve(void* id){
 			pthread_mutex_unlock(buffmutex);
 			if(dnslookup(domain, ipstr, sizeof(ipstr)) == UTIL_FAILURE)//look up domain, or try
 				strncpy(ipstr, "", sizeof(ipstr));
+			printf("%s:%s\n", domain, ipstr);
             pthread_mutex_lock(outmutex); //lock output file, if possible
 			fprintf(outfile, "%s,%s\n", domain, ipstr); //write to output file
 			pthread_mutex_unlock(outmutex); //unlock output, if possible
@@ -124,8 +125,9 @@ int main(int argc, char * argv[]){
 		request_info[i].buffmutex   = &buffmutex;
 		request_info[i].outmutex    = NULL;
 		request_info[i].buffer      = &buffer;		
-        pthread_create(&(requests[i]), NULL, request, &(request_info[i]));
-		printf("Requested %d\n", i);
+		//pthread_create(pthread_t *thread, const pthread_attr_t *attr, void *(*start_routine) (void *), void *arg); arg==id passed to request
+        pthread_create(&(requests[i]), NULL, request, &(request_info[i])); 
+		printf("Create request %d\n", i);
     }
 	//Create resolve pthreads
     for(i=0; i<resolve_threads; i++){
@@ -134,18 +136,18 @@ int main(int argc, char * argv[]){
 		resolve_info[i].outmutex    = &outmutex;
 		resolve_info[i].buffer      = &buffer;
 		pthread_create(&(resolves[i]), NULL, resolve, &(resolve_info[i]));
-		printf("Resolved %d\n", i);
+		printf("Create resolve %d\n", i);
     }
     //Wait for request threads to complete
     for(i=0; i<input_files; i++){
         pthread_join(requests[i], NULL);
-		printf("Requested %d finished\n", i);
+		printf("Requested %d \n", i);
 	}
 	requests_exist=false;
-    //Wait for  threads to complete
+    //Wait for resolve threads to complete
     for(i=0; i<resolve_threads; i++){
-        pthread_join(resolves[i], NULL);
-		printf("Resolve  %d finished\n", i);
+        pthread_join(resolves[i], NULL); // int pthread_join(pthread_t thread, void **retval); joins with a termindated thread
+		printf("Resolved %d \n", i);
 	}
 	queue_cleanup(&buffer); //Clean queue
 	fclose(outfile);	//Close output file
