@@ -1,0 +1,1 @@
+cmd_/home/user/Dropbox/College/2015-2016/OS/l2/dd.ko := ld -r -m elf_x86_64 -T /home/kernel/linux-3.13.0/scripts/module-common.lds --build-id  -o /home/user/Dropbox/College/2015-2016/OS/l2/dd.ko /home/user/Dropbox/College/2015-2016/OS/l2/dd.o /home/user/Dropbox/College/2015-2016/OS/l2/dd.mod.o
