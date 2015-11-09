@@ -9,9 +9,9 @@ Run
 This testscript simulates all 27 combinations of our schedulers, # of iterations and process types then stores thoses results in CSV within the appropriate directory.
 
 Program syntax:
->./test-sched <SCHEDULER> <# of ITERATIONS> <PROCESSTYPE>
+>$ ./test-sched \<SCHEDULER> <# of ITERATIONS> \<PROCESSTYPE>
 
-<SCHEDULER>: SCHED_FIFO, SCHED_RR, SCHED_OTHER (DEFAULT)
-<# OF ITERATIONS>: LOW (DEFAULT), MEDIUM, HIGH
-<PROCESSTYPE>: CPU, IO, MIXED
+\<SCHEDULER>: SCHED_FIFO, SCHED_RR, SCHED_OTHER (DEFAULT)
+\<# OF ITERATIONS>: LOW (DEFAULT), MEDIUM, HIGH
+\<PROCESSTYPE>: CPU, IO, MIXED
 
