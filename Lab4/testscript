@@ -1,0 +1,43 @@
+#!/bin/bash
+
+# Wall = %e, System= %S, User = %U
+# CPU  = %P, Involuntary context switches = %c, 
+# Voluntary context switches = %w
+
+TIMEFORMAT="%e,%U,%S,%P,%c,%w"
+MAKE="make -s"
+schedulers[1]=SCHED_OTHER
+schedulers[2]=SCHED_FIFO
+schedulers[3]=SCHED_RR
+size[1]=SMALL
+size[2]=MEDIUM
+size[3]=LARGE
+process[1]=CPU
+process[2]=IO
+process[3]=MIXED
+echo Building code...
+$MAKE clean
+$MAKE
+
+echo Starting test runs...
+echo
+echo cpu-process tests...
+echo
+
+for l in 1 2 3
+do
+for k in 1 2 3
+do
+for j in 1 2 3
+do
+for i in 1 2 3 4 5
+do
+/usr/bin/time -f "$TIMEFORMAT" -o tests_output/${process[l]}-process_${schedulers[j]}_${size[k]}  -a sudo ./test-sched ${schedulers[j]} ${size[k]} ${process[l]}  > /dev/null
+done
+echo Running "${process[l]}"-process with "${schedulers[j]}" and "${size[k]}" simultaneous processes...
+echo
+done
+done
+done
+
+$MAKE clean
