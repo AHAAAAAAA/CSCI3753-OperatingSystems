@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Wall = %e, System= %S, User = %U
+# Wall = %e, User = %U, System= %S,
 # CPU  = %P, Involuntary context switches = %c, 
 # Voluntary context switches = %w
 
