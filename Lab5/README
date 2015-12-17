@@ -1,0 +1,3 @@
+Build: make
+Clean: make clean
+Usage: ./pa5-ecfs <key phrase> <mirror directory> <mount point>	
